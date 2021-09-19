@@ -1,0 +1,60 @@
+<html>
+<head>
+    
+<title>  Home Page  </title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+    <body>
+    <center>
+    
+    
+    <h1>Books Data</h1><hr> 
+    <!-- {% for i in all_books %}
+    {{i.id}} --- {{i.name}} <br>
+
+    {% endfor %} -->
+
+    <table border="2" style="border:1ch" bgcolor = "pink" >
+        
+        <tr>
+            <th text-align:center;> Book Id </th>
+            <th text-align:center;> Book Name </th>
+            <th text-align:center;> Book Quantity</th>
+            <th text-align:center;> Book Price </th>
+            <th text-align:center;> Is book Published</th>
+            <th text-align:center;> Action</th>
+        </tr>
+
+        {% for i in all_books %}
+        <tr>
+            <td> {{ i.id}} </td>
+            <td> {{i.name}} </td>
+            <td> {{i.qty}}</td>
+            <td> {{i.price}} </td>
+            {% if i.is_published %}
+                <td> Yes </td>
+            {% else %}
+                <td> No </td>
+            {% endif %}
+            <td> 
+                {%if book_status != "InActive"%}
+                    <a href="{% url 'update' i.id %}"> Update</a> &nbsp|&nbsp
+                    <a href="{% url 'soft_delete' i.id %}"> Soft Delete</a> &nbsp|&nbsp
+                    <a href="{% url 'delete' i.id %}"> Hard Delete</a> &nbsp|&nbsp
+                {%else%}
+                    <a href="{% url 'delete' i.id %}"> Hard Delete</a> &nbsp|&nbsp
+                    <a href="{% url 'restore_book' i.id %}">Restore</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table><br><br>
+    &nbsp &nbsp<a href="/homepage/" class = "btn btn-primary">Home Page</a> &nbsp &nbsp &nbsp
+    <a href="{% url 'active_books'%}" class = "btn btn-success">Show Active books</a>&nbsp &nbsp &nbsp
+    <a href="{% url 'inactive_books'%} " class = "btn btn-danger">Show Inactive books</a>
+</center>
+</body> 
+
+
+</html>
